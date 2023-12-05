@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="saludo">Good Morning!</string>
+    <string name="txt">MOBILES APPS 2023B</string>
+    <color name="txtColor">#E8FF00</color>
+    <color name="fondo">#3F51B5</color>
+</resources>

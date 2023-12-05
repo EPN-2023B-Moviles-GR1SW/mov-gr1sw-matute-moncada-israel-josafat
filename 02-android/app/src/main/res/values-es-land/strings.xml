@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="saludo">Buenos Dias!</string>
+    <string name="txt">APPS MÓVILES-2023B</string>
+    <color name="txtColor">#93381C</color>
+    <color name="fondo">#009688</color>
+</resources>

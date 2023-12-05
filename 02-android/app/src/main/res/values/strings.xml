@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">b2023gr1sw</string>
+    <string name="saludo"> Buenos Días!!</string>
+    <string name="txt">MOVILES-2023B</string>
+    <color name="txtColor">#FF000000</color>
+    <color name="fondo">#FFFFFFFF</color>
 </resources>
