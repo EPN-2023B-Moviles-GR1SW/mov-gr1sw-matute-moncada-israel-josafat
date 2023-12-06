@@ -26,4 +26,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="103dp" />
+
+    <Button
+        android:id="@+id/btn_ciclo_vida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="172dp"
+        android:text="CICLO DE VIDA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="146dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
