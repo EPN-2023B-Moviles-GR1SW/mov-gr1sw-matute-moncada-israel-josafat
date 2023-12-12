@@ -12,8 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
         tools:targetApi="31">
-        <!--android:theme="@style/Theme.B2023gr1sw"
-        -->
+        <activity
+            android:name=".BListView"
+            android:exported="false" />
+        <!-- android:theme="@style/Theme.B2023gr1sw" -->
         <activity
             android:name=".ACicloVida"
             android:exported="false" />
@@ -21,8 +23,8 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
-            <!--android:theme="@style/Theme.B2023gr1sw">
-            -->
+
+            <!-- android:theme="@style/Theme.B2023gr1sw"> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
