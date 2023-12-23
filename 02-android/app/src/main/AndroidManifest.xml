@@ -13,9 +13,11 @@
         android:theme="@style/Theme.AppCompat.Light"
         tools:targetApi="31">
         <activity
-            android:name=".BListView"
+            android:name=".CIntentExplicitoParametros"
             android:exported="false" />
-        <!-- android:theme="@style/Theme.B2023gr1sw" -->
+        <activity
+            android:name=".BListView"
+            android:exported="false" /> <!-- android:theme="@style/Theme.B2023gr1sw" -->
         <activity
             android:name=".ACicloVida"
             android:exported="false" />

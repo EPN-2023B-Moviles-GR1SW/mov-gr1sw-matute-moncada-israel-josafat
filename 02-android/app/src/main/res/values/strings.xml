@@ -4,4 +4,9 @@
     <string name="txt">MOVILES-2023B</string>
     <color name="txtColor">#FF000000</color>
     <color name="fondo">#FFFFFFFF</color>
+    <string-array name="string_array_opciones_dialogo">
+        <item>Lunes</item>
+        <item>Mártes</item>
+        <item>Miércoles</item>
+    </string-array>
 </resources>

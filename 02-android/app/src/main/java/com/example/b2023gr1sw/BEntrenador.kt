@@ -5,4 +5,8 @@ class BEntrenador (
     var nombre: String?,
     var descripción: String?
 ){
+
+    override fun toString(): String{
+        return "${nombre} - ${descripción}"
+    }
 }
