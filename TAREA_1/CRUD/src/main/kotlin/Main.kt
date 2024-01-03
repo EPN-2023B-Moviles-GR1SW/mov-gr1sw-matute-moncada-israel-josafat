@@ -291,52 +291,7 @@ class Comida {
         }
     }
 }
-/**
-fun main(args: Array<String>) {
 
-
-    Cocinero.create("Josafat Matute",2500.25,true)
-    Cocinero.create("Israel Matute",1200.25,true)
-    Cocinero.create("Josafat Israel",2300.25,false)
-
-    Cocinero.readAll()
-
-    Cocinero.delete(2)
-
-    Cocinero.readAll()
-
-
-    Comida.create("Hamburguesa",70.0,false)
-    Comida.create("SalchiPapa",90.0,false)
-    Comida.create("Atun cpon Huevo",85.0,true)
-
-    Comida.readAll()
-
-    Comida.update(1,null,100.0,true, null)
-
-    Comida.readAll()
-
-    Comida.delete(2)
-
-    Comida.readAll()
-
-
-
-    val consumirHasta = Calendar.getInstance()
-    consumirHasta.add(Calendar.MONTH, 1)
-
-    var comida1 = Comida(
-        "Hamburguesa",
-        71,
-        consumirHasta.time,
-        45.2,
-        false
-    )
-
-    println(comida1)
-
-}
-     */
 fun menuCocinero() {
     while (true) {
         println("\nMenú de Cocinero")
