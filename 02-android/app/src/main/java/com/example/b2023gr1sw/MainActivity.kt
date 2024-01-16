@@ -1,6 +1,7 @@
 package com.example.b2023gr1sw
 
 import ESqliteHelperEntrenador
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -101,6 +103,17 @@ class MainActivity : AppCompatActivity() {
         botonSqlite.setOnClickListener{
             irActividad(ECrudEntrenador::class.java)
         }
+
+        val botonRView = findViewById<Button>(R.id.btn_revcycler_view)
+        botonRView.setOnClickListener {
+            irActividad(FRecyclerView::class.java)
+        }
+
+        val botonGMaps = findViewById<Button>(R.id.btn_google_maps)
+        botonGMaps.setOnClickListener {
+            irActividad(GGoogleMapsActivity::class.java)
+        }
+
     }
 
     fun abrirActividadConParametros(
