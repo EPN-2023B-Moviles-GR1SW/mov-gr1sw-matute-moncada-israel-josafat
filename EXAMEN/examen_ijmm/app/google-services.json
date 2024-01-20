@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "987078043752",
+    "project_id": "examen-ijmm",
+    "storage_bucket": "examen-ijmm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987078043752:android:9efc72c7103b35e4a5f3dd",
+        "android_client_info": {
+          "package_name": "com.example.examen_ijmm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB94mM482acCTZ7v6xPrj_WqrOGEBKWe1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
