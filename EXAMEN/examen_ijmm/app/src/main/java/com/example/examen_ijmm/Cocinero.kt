@@ -38,6 +38,7 @@ class Cocinero{
     }
 
     fun quitComida(idComida: Int) {
+        val preparacion = Comida.readOne(idComida)
         this.preparaciones = this.preparaciones.filter { p -> p.id != idComida }.toMutableList()
         update(this.id, this.nombre, this.salario, this.isChef, this.fechaLicencia, this.preparaciones)
     }
@@ -49,6 +50,8 @@ class Cocinero{
         var listaCocineros = mutableListOf<Cocinero>()
 
         init {
+
+
             this.create("Josafat Matute",1750.50, false)
             this.create("Victoria Villa",2150.50, true)
             this.create("Daniela Velez",1925.10, true)
@@ -72,7 +75,9 @@ class Cocinero{
             validoHasta.add(Calendar.YEAR, 1)
             var id = Random.nextInt(1, 1001)
             var newCocinero = Cocinero(nombre, id,validoHasta.time,salario,isChef)
+
             listaCocineros.add(newCocinero)
+
             return newCocinero
         }
 
@@ -82,6 +87,7 @@ class Cocinero{
 
         fun readOne(id:Int): Cocinero? {
             val cocinero = listaCocineros.find { it.id == id }
+            //val cocinero = BD.tableCocinero!!.readCocineroSQL(id)
             return cocinero
         }
 
@@ -125,7 +131,6 @@ class Cocinero{
 
             val indiceCocinero = listaCocineros.indexOfFirst { it.id == id }
             listaCocineros.removeAt(indiceCocinero)
-
             return cocineroDelete
         }
 

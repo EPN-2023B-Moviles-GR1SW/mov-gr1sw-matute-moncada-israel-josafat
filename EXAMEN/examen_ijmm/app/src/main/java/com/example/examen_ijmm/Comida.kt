@@ -79,7 +79,7 @@ class Comida {
             nombre:String?,
             precio: Double?,
             isGourmet: Boolean?,
-            fechaCaducidad: Date?
+            fechaCaducidad: Date?,
         ):Comida? {
             val comidaUpdate = readOne(id)
             if(comidaUpdate==null){
@@ -114,7 +114,6 @@ class Comida {
 
             val indiceComida = listaComida.indexOfFirst { it.id == id }
             listaComida.removeAt(indiceComida)
-
             return comidaDelete
         }
     }
