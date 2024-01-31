@@ -21,7 +21,7 @@ import kotlin.reflect.typeOf
 class VerPreparacionesCocinero : AppCompatActivity() {
     private lateinit var arreglo: MutableList<Comida>
     private lateinit var cocineroUpdate: Cocinero
-
+    private var cocineroID: Int = 0
     val callbackContenidoIntentExplicito =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -48,13 +48,13 @@ class VerPreparacionesCocinero : AppCompatActivity() {
         setContentView(R.layout.activity_ver_preparaciones_cocinero)
 
 
-        val cocineroUpdateID = intent.getIntExtra("COCINERO_EDITAR",0)
-        cocineroUpdate = Cocinero.readOne(cocineroUpdateID)!!
+        cocineroID = intent.getIntExtra("COCINERO_EDITAR",0)
+        cocineroUpdate = Cocinero.readOne(cocineroID)!!
         val nombre = cocineroUpdate!!.nombre
 
         val nameInput = findViewById<TextView>(R.id.cocinero_name)
         nameInput.setText(nombre)
-        arreglo = cocineroUpdate.preparaciones
+        arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
 
         val listView = findViewById<ListView>(R.id.preparaciones_list_view)
         val adaptador = ArrayAdapter(
@@ -107,11 +107,14 @@ class VerPreparacionesCocinero : AppCompatActivity() {
                 return true
             }
             R.id.mi_eliminar ->{
-                cocineroUpdate.quitComida(arreglo[posItemSelected].id.toString().toInt())
-                Comida.delete(arreglo[posItemSelected].id.toString().toInt())
-                arreglo.removeAt(posItemSelected)
-                actualizarListView()
-                mostrarSnackbar("Preparación eliminada correctamente")
+                val res = DB.tableComida!!.eliminarComidaSQL(arreglo[posItemSelected].id.toString().toInt())
+                if (res==true){
+                    Comida.delete(arreglo[posItemSelected].id.toString().toInt())
+                    arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
+                    actualizarListView()
+                    mostrarSnackbar("Preparación eliminada correctamente")
+                }
+
                 return true
             }
             else -> super.onContextItemSelected(item)
@@ -120,6 +123,7 @@ class VerPreparacionesCocinero : AppCompatActivity() {
 
     private fun actualizarListView() {
         val listView = findViewById<ListView>(R.id.preparaciones_list_view)
+        arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
         val adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
@@ -158,6 +162,8 @@ class VerPreparacionesCocinero : AppCompatActivity() {
     ){
         val intentExplicito = Intent(this, clase)
         intentExplicito.putExtra(name,id)
+        intentExplicito.putExtra("PREPARACION_COCINERO",cocineroID)
+
         callbackContenidoIntentExplicito.launch(intentExplicito)
 
     }

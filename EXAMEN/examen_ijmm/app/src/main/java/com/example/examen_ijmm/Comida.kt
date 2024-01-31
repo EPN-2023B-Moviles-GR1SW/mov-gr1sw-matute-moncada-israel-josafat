@@ -30,21 +30,7 @@ class Comida {
     }
 
     companion object {
-        private var listaComida = mutableListOf<Comida>()
-
-        init {
-            this.create("Pizza Margarita", 12.99, false)
-            this.create("Sushi de Salmón", 18.50, true)
-            this.create("Ensalada César", 8.99, false)
-            this.create("Tacos de Carnitas", 10.75, false)
-            this.create("Pasta Alfredo", 14.50, true)
-            this.create("Hamburguesa BBQ", 9.99, true)
-            this.create("Ceviche de Camarones", 15.75, true)
-            this.create("Burritos de Pollo", 11.25, false)
-            this.create("Poke Bowl de Atún", 13.99, true)
-            this.create("Lasagna Bolognesa", 16.50, true)
-
-        }
+        var listaComida = mutableListOf<Comida>()
 
         fun create(
             nombre: String,
@@ -54,23 +40,12 @@ class Comida {
             val consumirHasta = Calendar.getInstance()
             consumirHasta.add(Calendar.MONTH, 1)
             var id = Random.nextInt(1, 1001)
-
             var newComida = Comida(nombre, id,consumirHasta.time,precio,isGourmet)
-            listaComida.add(newComida)
             return newComida
         }
 
-        fun readAll(): MutableList<Comida> {
-            return listaComida
-        }
-
         fun readOne(id:Int): Comida? {
-            val comida = listaComida.find { it.id == id }
-            return comida
-        }
-
-        fun readOneByName(name:String): Comida? {
-            val comida = listaComida.find { it.nombre == name }
+            val comida = DB.tableComida?.readComidaSQL(id)
             return comida
         }
 
@@ -111,9 +86,8 @@ class Comida {
                 println("Comida con ID ${id} no encontrado")
                 return null
             }
-
-            val indiceComida = listaComida.indexOfFirst { it.id == id }
-            listaComida.removeAt(indiceComida)
+            //val indiceComida = listaComida.indexOfFirst { it.id == id }
+            //listaComida.removeAt(indiceComida)
             return comidaDelete
         }
     }

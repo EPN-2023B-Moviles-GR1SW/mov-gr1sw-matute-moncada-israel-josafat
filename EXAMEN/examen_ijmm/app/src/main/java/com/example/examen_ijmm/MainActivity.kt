@@ -11,42 +11,24 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    val arreglo = Cocinero.listaCocineros
+    var arreglo = Cocinero.listaCocineros
     var posItemSelected = -1
-
-    val callbackContenidoIntentExplicito =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ){
-                result ->
-            if(result.resultCode == Activity.RESULT_OK){
-                if(result.data != null){
-                    //ACTUALIZAR NAME
-                    val data = result.data
-                    val listView = findViewById<ListView>(R.id.cocineros_list_view)
-                    val adaptador = ArrayAdapter(
-                        this,
-                        android.R.layout.simple_list_item_1,
-                        arreglo
-                    )
-                    listView.adapter = adaptador
-                    adaptador.notifyDataSetChanged()
-                    mostrarSnackbar("COCINERO ACTUALIZADO: ${data?.getStringExtra("COCINERO_EDITAR")} ")
-
-                }
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        DB.tableCocinero = CocineroSQLHelper(this)
+        DB.tableComida = ComidaSQLHelper(this)
+
+        arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
         val listView = findViewById<ListView>(R.id.cocineros_list_view)
         val adaptador = ArrayAdapter(
             this,
@@ -55,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         )
         listView.adapter = adaptador
         adaptador.notifyDataSetChanged()
+
+        //arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
 
         val btnCrearCocinero = findViewById<Button>(R.id.btn_crear_preparacion)
         btnCrearCocinero.setOnClickListener{
@@ -66,6 +50,34 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
+
+    }
+
+    val callbackContenidoIntentExplicito =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ){
+                result ->
+            if(result.resultCode == Activity.RESULT_OK){
+                if(result.data != null){
+                    arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
+                    val data = result.data
+                    val listView = findViewById<ListView>(R.id.cocineros_list_view)
+                    val adaptador = ArrayAdapter(
+                        this,
+                        android.R.layout.simple_list_item_1,
+                        arreglo
+                    )
+                    listView.adapter = adaptador
+                    adaptador.notifyDataSetChanged()
+                    mostrarSnackbar("UPDATED SQL AND MEM: ${data?.getStringExtra("COCINERO_EDITAR")} ")
+
+                }
+            }
+        }
     override fun onCreateContextMenu(
         menu: ContextMenu?,
         v: View?,
@@ -92,8 +104,23 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.mi_eliminar ->{
-                val cocineroSelectedID = Cocinero.listaCocineros[posItemSelected].id
-                Cocinero.delete(cocineroSelectedID)
+                val cocineroSelectedID = arreglo[posItemSelected].id
+                var deletedCocinero = Cocinero.delete(cocineroSelectedID)
+
+                var deleteSQL = DB.tableCocinero!!.eliminarCocineroSQL(
+                    deletedCocinero!!.id
+                )
+
+                if (deleteSQL==false){
+                    val intentDevolverParametros = Intent()
+                    setResult(
+                        RESULT_CANCELED,
+                        intentDevolverParametros
+                    )
+                    finish()
+                }
+                arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
+
                 val listView = findViewById<ListView>(R.id.cocineros_list_view)
                 val adaptador = ArrayAdapter(
                     this,
@@ -139,7 +166,7 @@ class MainActivity : AppCompatActivity() {
         name: String
     ){
         val intentExplicito = Intent(this, clase)
-        val cocineroSelectedID = Cocinero.listaCocineros[index].id
+        val cocineroSelectedID = arreglo[index].id
         intentExplicito.putExtra(name,cocineroSelectedID)
         callbackContenidoIntentExplicito.launch(intentExplicito)
     }

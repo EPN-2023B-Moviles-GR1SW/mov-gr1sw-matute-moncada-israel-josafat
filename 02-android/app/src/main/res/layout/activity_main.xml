@@ -86,8 +86,10 @@
         android:text="SQLITE"
         app:layout_constraintBottom_toBottomOf="@+id/btn_ciclo_vida"
         app:layout_constraintEnd_toStartOf="@+id/btn_ciclo_vida"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_ciclo_vida" />
+        app:layout_constraintTop_toTopOf="@+id/btn_ciclo_vida"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_revcycler_view"
@@ -97,7 +99,6 @@
         android:text="R. VIEW"
         app:layout_constraintBottom_toTopOf="@+id/btn_sqlite"
         app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.236"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_ir_intent_implicito" />
 
@@ -108,10 +109,10 @@
         android:text="G. MAPS"
         app:layout_constraintBottom_toTopOf="@+id/btn_ciclo_vida"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.415"
+        app:layout_constraintHorizontal_bias="0.61"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/btn_ir_intent_implicito"
-        app:layout_constraintVertical_bias="0.342" />
+        app:layout_constraintVertical_bias="0.757" />
 
     <Button
         android:id="@+id/btn_intent_firebase_ui"
@@ -124,5 +125,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/btn_ciclo_vida"
         app:layout_constraintTop_toBottomOf="@+id/btn_google_maps"
-        app:layout_constraintVertical_bias="0.358" />
+        app:layout_constraintVertical_bias="0.17" />
+
+    <Button
+        android:id="@+id/btn_firestore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FIRESTORE"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sqlite"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_revcycler_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

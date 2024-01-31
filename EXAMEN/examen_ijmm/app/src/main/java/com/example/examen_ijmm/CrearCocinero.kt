@@ -31,8 +31,16 @@ class CrearCocinero : AppCompatActivity() {
                         mostrarSnackbar("POR FAVOR INGRESA UN NÚMERO MAYOR A 0.0")
                     } else {
                         val isChef = findViewById<RadioButton>(R.id.check_si)
+                        var newCocinero = Cocinero.create(nombre, salario, isChef.isChecked)
 
-                        Cocinero.create(nombre, salario, isChef.isChecked)
+                        DB.tableCocinero?.crearCocineroSQL(
+                            newCocinero!!.nombre.toString(),
+                            newCocinero!!.id.toInt(),
+                            newCocinero!!.fechaLicencia.toString(),
+                            newCocinero!!.salario.toDouble(),
+                            newCocinero!!.isChef
+                        )
+
                         irActividad(MainActivity::class.java)
                     }
                 }

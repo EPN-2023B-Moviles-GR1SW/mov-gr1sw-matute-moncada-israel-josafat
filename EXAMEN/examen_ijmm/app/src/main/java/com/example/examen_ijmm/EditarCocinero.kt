@@ -66,9 +66,26 @@ class EditarCocinero : AppCompatActivity() {
                     try {
                         val date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(dateText)
 
-                        Cocinero.update(cocineroUpdateID, nombre, salario, isChef.isChecked, date, null)
-                        mostrarSnackbar("COCINERO ACTUALIZADO CORRECTAMENTE")
-                        devolverRespuesta(nombre)
+                        var updatedCocinero = Cocinero.update(cocineroUpdateID, nombre, salario, isChef.isChecked, date)
+
+                        var updateSQL = DB.tableCocinero!!.updateCocineroSQL(
+                            updatedCocinero!!.nombre.toString(),
+                            updatedCocinero!!.id.toInt(),
+                            updatedCocinero!!.fechaLicencia.toString(),
+                            updatedCocinero!!.salario.toDouble(),
+                            updatedCocinero!!.isChef
+                        )
+
+                        if (updateSQL==true){
+                            devolverRespuesta(nombre)
+                        }else{
+                            val intentDevolverParametros = Intent()
+                            setResult(
+                                RESULT_CANCELED,
+                                intentDevolverParametros
+                            )
+                            finish()
+                        }
                     } catch (e: ParseException) {
                         mostrarSnackbar("FECHA INVÁLIDA")
                     }

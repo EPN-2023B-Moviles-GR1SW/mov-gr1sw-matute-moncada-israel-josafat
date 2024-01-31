@@ -19,6 +19,8 @@ class EditarPreparacion : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_preparacion)
         val comidaUpdateID = intent.getIntExtra("PREPARACION_EDITAR",0)
+        val cocineroID = intent.getIntExtra("PREPARACION_COCINERO",1)
+
         val comidaToUpdate = Comida.readOne(comidaUpdateID)
         val nombre = comidaToUpdate!!.nombre
         val precio = comidaToUpdate!!.precio
@@ -62,9 +64,30 @@ class EditarPreparacion : AppCompatActivity() {
                   } else {
                       val isGourmet = findViewById<RadioButton>(R.id.check_si)
                       val dateInput = findViewById<TextView>(R.id.editTextDate2).text.toString()
+
                       try {
-                          Comida.update(comidaUpdateID, nombre, precio, isGourmet.isChecked, SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(dateInput))
-                          devolverRespuesta()
+                          val date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(dateInput)
+                          var updatedComida = Comida.update(comidaUpdateID, nombre, precio, isGourmet.isChecked, date)
+
+                          var updateSQL = DB.tableComida!!.updateComidaSQL(
+                              updatedComida!!.nombre.toString(),
+                              updatedComida!!.id.toInt(),
+                              updatedComida!!.fechaCaducidad.toString(),
+                              updatedComida!!.precio.toDouble(),
+                              updatedComida!!.isGourmet,
+                              cocineroID
+                          )
+
+                          if (updateSQL==true){
+                              devolverRespuesta()
+                          }else{
+                              val intentDevolverParametros = Intent()
+                              setResult(
+                                  RESULT_CANCELED,
+                                  intentDevolverParametros
+                              )
+                              finish()
+                          }
                       }catch (e: ParseException) {
                           mostrarSnackbar("FECHA INVÁLIDA")
                       }

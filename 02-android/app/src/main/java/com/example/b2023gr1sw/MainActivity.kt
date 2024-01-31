@@ -119,6 +119,11 @@ class MainActivity : AppCompatActivity() {
             irActividad(HFirebaseUIAuth::class.java)
         }
 
+        val btnIFirestore = findViewById<Button>(R.id.btn_firestore)
+        btnIFirestore.setOnClickListener{
+            irActividad(IFirestore::class.java)
+        }
+
     }
 
     fun abrirActividadConParametros(
