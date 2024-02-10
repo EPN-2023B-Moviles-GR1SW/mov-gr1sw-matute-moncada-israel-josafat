@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "983071850143",
+    "project_id": "soundcloudclone-df601",
+    "storage_bucket": "soundcloudclone-df601.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983071850143:android:ca7301c96396b4fbe2ecaa",
+        "android_client_info": {
+          "package_name": "com.example.soundcloudclone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlIM8z3ViY3XeNywW5_QPngGRj5q4cGmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
