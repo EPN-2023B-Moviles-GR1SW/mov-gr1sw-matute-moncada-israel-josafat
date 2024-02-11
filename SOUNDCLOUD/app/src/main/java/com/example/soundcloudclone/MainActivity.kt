@@ -72,6 +72,26 @@ class MainActivity : ComponentActivity() {
             mostrarSnackbar("JZVK9")
         }
 
+        val masmusica1 = findViewById<LinearLayout>(R.id.mas_musica_1)
+        masmusica1.setOnClickListener{
+            mostrarSnackbar("MVDX & YDDN - VAMOS! MIX")
+        }
+
+        val masmusica2 = findViewById<LinearLayout>(R.id.mas_musica_2)
+        masmusica2.setOnClickListener{
+            mostrarSnackbar("NOT A PROBLEM! - ZAPP BEATS MIX")
+        }
+
+        val masmusica3 = findViewById<LinearLayout>(R.id.mas_musica_3)
+        masmusica3.setOnClickListener{
+            mostrarSnackbar("kells - IMAMONSTER MIX")
+        }
+
+        val masmusica4 = findViewById<LinearLayout>(R.id.mas_musica_4)
+        masmusica4.setOnClickListener{
+            mostrarSnackbar("KORDHELL - KILLERS FROM THE NORTHSIDE MIX")
+        }
+
 
     }
 

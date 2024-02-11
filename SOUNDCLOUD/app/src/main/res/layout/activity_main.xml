@@ -9,6 +9,21 @@
     tools:layout_editor_absoluteY="2dp">
 
     <TextView
+        android:id="@+id/more_music_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:text="Más música de la que te gusta"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inicio_tv"
+        app:layout_constraintVertical_bias="0.29" />
+
+    <TextView
         android:id="@+id/nuevas_pistas_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -283,4 +298,167 @@
 
     </HorizontalScrollView>
 
+    <HorizontalScrollView
+        android:layout_width="377dp"
+        android:layout_height="187dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.382"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.518">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/mas_musica_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/logoArtTS1_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/tk1" />
+
+                <TextView
+                    android:id="@+id/nameArtTS1_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="20dp"
+                    android:background="#000000"
+                    android:gravity="center"
+                    android:text="MVDX X YDDN - VAMOS!"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/subnameArtTS1_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="15dp"
+                    android:background="#000000"
+                    android:gravity="center"
+                    android:text="Pistas similares"
+                    android:textColor="#BAB4B4"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/mas_musica_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/logoArtTS2_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/tk2" />
+
+                <TextView
+                    android:id="@+id/nameArtTS2_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="20dp"
+                    android:background="#000000"
+                    android:gravity="center"
+                    android:text="NOT A PROBLEM! - ZAPP BEATS"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/subnameArtTS2_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="15dp"
+                    android:background="#000000"
+                    android:gravity="center"
+                    android:text="Pistas similares"
+                    android:textColor="#BAB4B4"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/mas_musica_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/logoArtTS3_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/tk3" />
+
+                <TextView
+                    android:id="@+id/nameArtTS3_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="20dp"
+                    android:background="#000000"
+                    android:gravity="center"
+                    android:text="Kells - IMAMONSTER"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/subnameArtTS3_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="15dp"
+                    android:background="#000000"
+                    android:gravity="center"
+                    android:text="Pistas similares"
+                    android:textColor="#BAB4B4"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/mas_musica_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/logoArtTS4_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/tk4" />
+
+                <TextView
+                    android:id="@+id/nameArtTS4_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="20dp"
+                    android:background="#000000"
+                    android:gravity="center"
+                    android:text="KORDHELL - KILLERS FROM THE NORTHSIDE"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/subnameArtTS4_iv"
+                    android:layout_width="150dp"
+                    android:layout_height="15dp"
+                    android:background="#000000"
+                    android:gravity="center"
+                    android:text="Pistas similares"
+                    android:textColor="#BAB4B4"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </HorizontalScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

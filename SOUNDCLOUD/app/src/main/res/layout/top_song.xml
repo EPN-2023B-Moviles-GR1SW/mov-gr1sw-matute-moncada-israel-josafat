@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- list_item_with_image_and_text.xml -->
+<!-- list_item_with_image_and_text.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item_with_image_and_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/logoArtTS_iv"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/tk1" />
+
+    <TextView
+        android:id="@+id/nameArtTS_iv"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:background="#000000"
+        android:gravity="center"
+        android:text="MVDX X YDDN - VAMOS!"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/subnameArtTS_iv"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:background="#000000"
+        android:gravity="center"
+        android:text="Pistas similares"
+        android:textColor="#BAB4B4"
+        android:textSize="12sp" />
+
+</LinearLayout>
