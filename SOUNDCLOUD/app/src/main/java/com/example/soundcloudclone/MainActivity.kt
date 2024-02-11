@@ -92,6 +92,36 @@ class MainActivity : ComponentActivity() {
             mostrarSnackbar("KORDHELL - KILLERS FROM THE NORTHSIDE MIX")
         }
 
+        val rec_escu1 = findViewById<LinearLayout>(R.id.listen_1)
+        rec_escu1.setOnClickListener{
+            mostrarSnackbar("Pistas que me gustan")
+        }
+
+        val rec_escu2 = findViewById<LinearLayout>(R.id.listen_2)
+        rec_escu2.setOnClickListener{
+            mostrarSnackbar("Trap mix")
+        }
+
+
+        val rec_escu3 = findViewById<LinearLayout>(R.id.listen_3)
+        rec_escu3.setOnClickListener{
+            mostrarSnackbar("Kaito station")
+        }
+
+        val rec_escu4 = findViewById<LinearLayout>(R.id.listen_4)
+        rec_escu4.setOnClickListener{
+            mostrarSnackbar("Underground mix")
+        }
+
+        val rec_escu5 = findViewById<LinearLayout>(R.id.listen_5)
+        rec_escu5.setOnClickListener{
+            mostrarSnackbar("Mix gym")
+        }
+
+        val rec_escu6 = findViewById<LinearLayout>(R.id.listen_6)
+        rec_escu6.setOnClickListener{
+            mostrarSnackbar("Street Phonk Releases")
+        }
 
     }
 
