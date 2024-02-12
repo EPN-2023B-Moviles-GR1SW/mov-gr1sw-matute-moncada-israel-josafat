@@ -123,6 +123,11 @@ class MainActivity : ComponentActivity() {
             mostrarSnackbar("Street Phonk Releases")
         }
 
+        val track = findViewById<Button>(R.id.play_track_btn)
+        track.setOnClickListener{
+            irActividad(TrackRV::class.java)
+        }
+
     }
 
     fun irActividad (

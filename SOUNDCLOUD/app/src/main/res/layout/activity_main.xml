@@ -661,7 +661,7 @@
 
             </LinearLayout>
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            <LinearLayout
                 android:id="@+id/mas_musica_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -693,6 +693,33 @@
                     android:text="Pistas similares"
                     android:textColor="#BAB4B4"
                     android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Imagen -->
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="20dp"
+                        android:src="@drawable/baseline_play_arrow_24" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="KORDHELL - KILLERS FROM THE NORTHSIDE"
+                        android:textColor="#FFFFFF" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:src="@drawable/tk2" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -771,6 +798,32 @@
         </LinearLayout>
 
     </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/play_track_btn"
+        android:layout_width="412dp"
+        android:layout_height="53dp"
+        android:background="#221F1F"
+        android:contextClickable="false"
+        android:cursorVisible="false"
+        android:drawableStart="@drawable/baseline_play_arrow_24"
+        android:drawableRight="@drawable/baseline_favorite_24"
+        android:drawablePadding="20dp"
+        android:drawableTint="@color/sc"
+        android:fontFamily="@font/inter"
+        android:paddingStart="24dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="KORDHELL - KILLERS FROM THE NORTHSIDE"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listened_lv"
+        app:layout_constraintVertical_bias="0.112" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
