@@ -3,18 +3,185 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000">
 
     <TextView
         android:id="@+id/track_tv"
+        android:layout_width="341dp"
+        android:layout_height="62dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.062" />
+
+    <ImageView
+        android:id="@+id/track_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contextClickable="false"
+        android:cropToPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.355"
+        app:srcCompat="@drawable/trv1" />
+
+    <TextView
+        android:id="@+id/artist_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textSize="34sp"
+        android:textColor="#786E6E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/track_tv"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/track_tv"
+        app:layout_constraintTop_toBottomOf="@+id/track_tv"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/info_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sobre esta pista"
+        android:textColor="#786E6E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/artist_tv"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/artist_tv"
+        app:layout_constraintTop_toBottomOf="@+id/artist_tv"
+        app:layout_constraintVertical_bias="0.011" />
+
+    <Button
+        android:id="@+id/like_btn"
+        android:layout_width="73dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="100dp"
+        android:background="#000000"
+        android:drawableStart="@drawable/baseline_favorite_24"
+        android:padding="4dp"
+        android:text="0"
+        android:textColor="@color/sc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_tv"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/cmnt_btn"
+        android:layout_width="73dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="100dp"
+        android:background="#000000"
+        android:drawableStart="@drawable/baseline_comment_24"
+        android:padding="4dp"
+        android:text="0"
+        android:textColor="@color/sc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.314"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_tv"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/share_btn"
+        android:layout_width="66dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:background="#000000"
+        android:drawableStart="@drawable/baseline_share_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/cmnt_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.855" />
+
+    <Button
+        android:id="@+id/list_btn"
+        android:layout_width="66dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:background="#000000"
+        android:drawableStart="@drawable/baseline_article_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toEndOf="@+id/cmnt_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.855" />
+
+    <Button
+        android:id="@+id/menu_btn"
+        android:layout_width="73dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:background="#000000"
+        android:drawableStart="@drawable/baseline_arrow_drop_up_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.965"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.122" />
+        app:layout_constraintVertical_bias="0.855" />
+
+    <Button
+        android:id="@+id/drop_track_btn"
+        android:layout_width="42dp"
+        android:layout_height="34dp"
+        android:backgroundTint="#FFFFFF"
+        android:drawableStart="@drawable/baseline_arrow_drop_down"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.047" />
+
+    <Button
+        android:id="@+id/cast_track_btn"
+        android:layout_width="42dp"
+        android:layout_height="34dp"
+        android:backgroundTint="#FFFFFF"
+        android:drawableStart="@drawable/baseline_cast_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.144" />
+
+    <Button
+        android:id="@+id/share_track_btn"
+        android:layout_width="42dp"
+        android:layout_height="34dp"
+        android:backgroundTint="#FFFFFF"
+        android:drawableStart="@drawable/baseline_co_present_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.096" />
+
+    <TextView
+        android:id="@+id/duration_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0:00"
+        android:textColor="@color/sc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
