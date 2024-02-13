@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000">
@@ -9,6 +11,8 @@
         android:id="@+id/track_tv"
         android:layout_width="341dp"
         android:layout_height="62dp"
+        android:background="#000000"
+        android:fontFamily="@font/inter_semibold"
         android:text="TextView"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
@@ -21,20 +25,21 @@
 
     <ImageView
         android:id="@+id/track_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="416dp"
+        android:layout_height="736dp"
         android:contextClickable="false"
         android:cropToPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.355"
         app:srcCompat="@drawable/trv1" />
 
     <TextView
         android:id="@+id/artist_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#000000"
+        android:fontFamily="@font/inter"
         android:text="TextView"
         android:textColor="#786E6E"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,10 +49,13 @@
         app:layout_constraintTop_toBottomOf="@+id/track_tv"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <TextView
         android:id="@+id/info_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#000000"
+        android:fontFamily="@font/inter"
         android:text="Sobre esta pista"
         android:textColor="#786E6E"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,83 +63,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/artist_tv"
         app:layout_constraintTop_toBottomOf="@+id/artist_tv"
-        app:layout_constraintVertical_bias="0.011" />
-
-    <Button
-        android:id="@+id/like_btn"
-        android:layout_width="73dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="100dp"
-        android:background="#000000"
-        android:drawableStart="@drawable/baseline_favorite_24"
-        android:padding="4dp"
-        android:text="0"
-        android:textColor="@color/sc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_tv"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/cmnt_btn"
-        android:layout_width="73dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="100dp"
-        android:background="#000000"
-        android:drawableStart="@drawable/baseline_comment_24"
-        android:padding="4dp"
-        android:text="0"
-        android:textColor="@color/sc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.314"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_tv"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/share_btn"
-        android:layout_width="66dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:background="#000000"
-        android:drawableStart="@drawable/baseline_share_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cmnt_btn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.855" />
-
-    <Button
-        android:id="@+id/list_btn"
-        android:layout_width="66dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:background="#000000"
-        android:drawableStart="@drawable/baseline_article_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.44"
-        app:layout_constraintStart_toEndOf="@+id/cmnt_btn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.855" />
-
-    <Button
-        android:id="@+id/menu_btn"
-        android:layout_width="73dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:background="#000000"
-        android:drawableStart="@drawable/baseline_arrow_drop_up_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.965"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.855" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/drop_track_btn"
@@ -172,15 +104,111 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.096" />
 
-    <TextView
-        android:id="@+id/duration_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0:00"
-        android:textColor="@color/sc"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        android:layout_width="415dp"
+        android:layout_height="78dp"
+        android:background="#000000"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="10px"
+        android:textAlignment="gravity"
+        app:layout_constraintBottom_toBottomOf="@+id/track_image"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.886">
+
+        <Button
+            android:id="@+id/like_btn"
+            android:layout_width="73dp"
+            android:layout_height="41dp"
+            android:layout_marginBottom="100dp"
+            android:background="#000000"
+            android:drawableStart="@drawable/baseline_favorite_24"
+            android:padding="4dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/sc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.047"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_tv"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/cmnt_btn"
+            android:layout_width="73dp"
+            android:layout_height="41dp"
+            android:layout_marginBottom="100dp"
+            android:background="#000000"
+            android:drawableStart="@drawable/baseline_comment_24"
+            android:padding="4dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/sc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.314"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_tv"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/duration_tv"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:text="0:00"
+            android:textAlignment="center"
+            android:textColor="@color/sc" />
+
+        <Button
+            android:id="@+id/share_btn"
+            android:layout_width="39dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="#000000"
+            android:drawableStart="@drawable/baseline_share_24"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/cmnt_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.845" />
+
+        <Button
+            android:id="@+id/list_btn"
+            android:layout_width="39dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="#000000"
+            android:drawableStart="@drawable/baseline_article_24"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.446"
+            app:layout_constraintStart_toEndOf="@+id/cmnt_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.845" />
+
+        <Button
+            android:id="@+id/menu_btn"
+            android:layout_width="39dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="#000000"
+            android:drawableStart="@drawable/baseline_arrow_drop_up_24"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.955"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.845" />
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
