@@ -8,30 +8,29 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TrackRVAdapter(
-    private val contexto: TrackRV,
+class RadioRVAdapter(
+    private val contexto: RadioRV,
     private val lista: ArrayList<String>,
     private val recyclerView: RecyclerView
-):RecyclerView.Adapter<
-        TrackRVAdapter.MyViewHolder
+): RecyclerView.Adapter<
+        RadioRVAdapter.MyViewHolder
         >() {
+
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(
         view
     ){
         val nombreTextView: TextView
         val artistTextView: TextView
-        val durationTextView: TextView
         val likes: Button
         val comments: Button
         val img: ImageView
 
         init{
-            nombreTextView = view.findViewById(R.id.track_tv)
-            artistTextView = view.findViewById(R.id.artist_tv)
-            durationTextView = view.findViewById(R.id.duration_tv)
-            likes = view.findViewById(R.id.like_btn)
-            comments = view.findViewById(R.id.cmnt_btn)
-            img = view.findViewById<ImageView>(R.id.track_image)
+            nombreTextView = view.findViewById(R.id.trackRd_tv)
+            artistTextView = view.findViewById(R.id.artistRd_tv)
+            likes = view.findViewById(R.id.likeRd_btn)
+            comments = view.findViewById(R.id.cmntRd_btn)
+            img = view.findViewById<ImageView>(R.id.trackRd_image)
 
             likes.setOnClickListener{
                 val currentLikes = likes.text.toString()
@@ -58,7 +57,7 @@ class TrackRVAdapter(
         val itemView = LayoutInflater
             .from(parent.context)
             .inflate(
-                R.layout.trackrv,
+                R.layout.radiorv,
                 parent,
                 false
             )
@@ -72,16 +71,14 @@ class TrackRVAdapter(
         val trackActual = this.lista[position]
         val datos = trackActual.split(",")
 
-        val nombreCancion = datos[0]
+        val nombreRadio = datos[0]
         val artista = datos[1]
-        val duracion = datos[2]
-        val likes = datos[3]
-        val comments = datos[4]
-        val imagen = datos[5]
+        val likes = datos[2]
+        val comments = datos[3]
+        val imagen = datos[4]
 
-        holder.nombreTextView.text = nombreCancion
+        holder.nombreTextView.text = nombreRadio
         holder.artistTextView.text = artista
-        holder.durationTextView.text = duracion
         holder.likes.text = likes
         holder.comments.text = comments
         val nombreImagen = imagen.substringAfterLast("/")
@@ -96,4 +93,3 @@ class TrackRVAdapter(
 
 
 }
-

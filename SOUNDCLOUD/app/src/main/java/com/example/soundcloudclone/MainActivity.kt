@@ -128,6 +128,11 @@ class MainActivity : ComponentActivity() {
             irActividad(TrackRV::class.java)
         }
 
+        val radio_btn = findViewById<Button>(R.id.radio_btn)
+        radio_btn.setOnClickListener{
+           irActividad(RadioRV::class.java)
+        }
+
     }
 
     fun irActividad (
