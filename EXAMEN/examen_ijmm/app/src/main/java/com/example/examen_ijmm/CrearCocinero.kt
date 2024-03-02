@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
-
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 class CrearCocinero : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,33 +33,33 @@ class CrearCocinero : AppCompatActivity() {
                         mostrarSnackbar("POR FAVOR INGRESA UN NÚMERO MAYOR A 0.0")
                     } else {
                         val isChef = findViewById<RadioButton>(R.id.check_si)
-                        /*
-                        var newCocinero = Cocinero.create(nombre, salario, isChef.isChecked)
 
-                        DB.tableCocinero?.crearCocineroSQL(
-                            newCocinero!!.nombre.toString(),
-                            newCocinero!!.id.toInt(),
-                            newCocinero!!.fechaLicencia.toString(),
-                            newCocinero!!.salario.toDouble(),
-                            newCocinero!!.isChef
+                        var newCocinero = Cocinero.create(nombre, salario, isChef.isChecked,"")
+
+                        val db = Firebase.firestore
+                        val referencia = db.collection("cocineros")
+                        val nuevoCocinero = hashMapOf(
+                            "nombre" to newCocinero!!.nombre,
+                            "salario" to newCocinero!!.salario,
+                            "isChef" to newCocinero!!.isChef,
+                            "fechaLicencia" to newCocinero!!.fechaLicencia.toString(),
+                            "id" to newCocinero!!.id
                         )
 
-                         */
+                        Toast.makeText(this, "C: ${nuevoCocinero}", Toast.LENGTH_LONG)
+                            .show()
 
-                        irActividad(MainActivity::class.java)
+                        referencia.add(nuevoCocinero)
+                            .addOnSuccessListener{
+                                mostrarSnackbar("Cocinero Creado en FBase :)")
+                            }
+                            .addOnFailureListener{}
+                        finish()
                     }
                 }
 
             }
 
-    }
-
-
-    fun irActividad (
-        clase: Class<*>
-    ){
-        val intent = Intent(this, clase)
-        startActivity(intent)
     }
 
     fun mostrarSnackbar(texto:String){

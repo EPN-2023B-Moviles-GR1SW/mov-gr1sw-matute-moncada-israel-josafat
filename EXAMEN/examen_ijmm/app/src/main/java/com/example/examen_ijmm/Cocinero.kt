@@ -54,8 +54,9 @@ class Cocinero{
         }
 
         fun readOne(id:Int): Cocinero? {
-            val cocinero = DB.tableCocinero?.readCocineroSQL(id)
-            return cocinero
+            //val cocinero = DB.tableCocinero?.readCocineroSQL(id)
+            //return cocinero
+            return this.listaCocineros.find{c->c.id==id}
         }
 
         fun update(

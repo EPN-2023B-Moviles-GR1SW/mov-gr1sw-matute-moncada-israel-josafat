@@ -32,13 +32,13 @@ class MainActivity : AppCompatActivity() {
         DB.tableComida = ComidaSQLHelper(this)
 
         val listView = findViewById<ListView>(R.id.cocineros_list_view)
-        val adaptador = ArrayAdapter(
+        adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
             arreglo
         )
         listView.adapter = adaptador
-        adaptador.notifyDataSetChanged()
+        adaptador!!.notifyDataSetChanged()
 
         //arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
         readAllCocinerosFB(adaptador!!)
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         val btnCrearCocinero = findViewById<Button>(R.id.btn_crear_preparacion)
         btnCrearCocinero.setOnClickListener{
             irActividad(CrearCocinero::class.java)
-            adaptador.notifyDataSetChanged()
+            adaptador!!.notifyDataSetChanged()
         }
 
         registerForContextMenu(listView)
@@ -56,7 +56,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         //arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
-
+        readAllCocinerosFB(adaptador!!)
+        //adaptador!!.notifyDataSetChanged()
     }
 
     val callbackContenidoIntentExplicito =
@@ -101,7 +102,7 @@ class MainActivity : AppCompatActivity() {
             R.id.mi_editar ->{
                 abrirActividadConParametros(
                     EditarCocinero::class.java,
-                    posItemSelected,
+                    arreglo[posItemSelected].id,
                     "COCINERO_EDITAR"
                 )
                 return true
@@ -169,8 +170,7 @@ class MainActivity : AppCompatActivity() {
         name: String
     ){
         val intentExplicito = Intent(this, clase)
-        val cocineroSelectedID = arreglo[index].id
-        intentExplicito.putExtra(name,cocineroSelectedID)
+        intentExplicito.putExtra(name,index)
         callbackContenidoIntentExplicito.launch(intentExplicito)
     }
 
@@ -179,14 +179,14 @@ class MainActivity : AppCompatActivity() {
     ){
         val db = Firebase.firestore
         val referencia = db.collection("cocineros")
-        arreglo.clear()
         adaptador.notifyDataSetChanged()
         referencia
             .get()
             .addOnSuccessListener {
+                arreglo.clear()
+                
                 for (c in it){
                     c.id
-                    Toast.makeText(this, "${c.id}", Toast.LENGTH_SHORT).show()
                     val cocinero = Cocinero.create(
                         c.data.get("nombre") as String?:"",
                         c.data.get("salario") as Double?:0.0,
