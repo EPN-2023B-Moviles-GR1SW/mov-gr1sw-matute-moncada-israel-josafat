@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             R.id.mi_ver ->{
                 abrirActividadConParametros(
                     VerPreparacionesCocinero::class.java,
-                    posItemSelected,
+                    arreglo[posItemSelected].id,
                     "COCINERO_EDITAR"
                 )
                 return true

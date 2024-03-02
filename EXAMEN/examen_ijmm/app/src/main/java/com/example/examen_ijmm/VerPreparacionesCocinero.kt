@@ -19,9 +19,12 @@ import com.google.android.material.snackbar.Snackbar
 import kotlin.reflect.typeOf
 
 class VerPreparacionesCocinero : AppCompatActivity() {
-    private lateinit var arreglo: MutableList<Comida>
+    var arreglo = Comida.listaComida
     private lateinit var cocineroUpdate: Cocinero
     private var cocineroID: Int = 0
+    var adaptador: ArrayAdapter<Comida>? = null
+    var posItemSelected = -1
+
     val callbackContenidoIntentExplicito =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -30,40 +33,37 @@ class VerPreparacionesCocinero : AppCompatActivity() {
             if(result.resultCode == Activity.RESULT_OK){
                 if(result.data != null){
                     val listView = findViewById<ListView>(R.id.preparaciones_list_view)
-                    val adaptador = ArrayAdapter(
+                    adaptador = ArrayAdapter(
                         this,
                         android.R.layout.simple_list_item_1,
                         arreglo
                     )
                     listView.adapter = adaptador
-                    adaptador.notifyDataSetChanged()
+                    adaptador!!.notifyDataSetChanged()
                     mostrarSnackbar("PREPARACIÓN ACTUALIZADA CORRECTAMENTE!")
 
                 }
             }
         }
-    var posItemSelected = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ver_preparaciones_cocinero)
-
-
         cocineroID = intent.getIntExtra("COCINERO_EDITAR",0)
         cocineroUpdate = Cocinero.readOne(cocineroID)!!
         val nombre = cocineroUpdate!!.nombre
-
         val nameInput = findViewById<TextView>(R.id.cocinero_name)
         nameInput.setText(nombre)
-        arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
+
+        //arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
 
         val listView = findViewById<ListView>(R.id.preparaciones_list_view)
-        val adaptador = ArrayAdapter(
+        adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
             arreglo
         )
         listView.adapter = adaptador
-        adaptador.notifyDataSetChanged()
+        adaptador!!.notifyDataSetChanged()
 
         registerForContextMenu(listView)
 
@@ -110,7 +110,7 @@ class VerPreparacionesCocinero : AppCompatActivity() {
                 val res = DB.tableComida!!.eliminarComidaSQL(arreglo[posItemSelected].id.toString().toInt())
                 if (res==true){
                     Comida.delete(arreglo[posItemSelected].id.toString().toInt())
-                    arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
+                    //arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
                     actualizarListView()
                     mostrarSnackbar("Preparación eliminada correctamente")
                 }
@@ -123,7 +123,7 @@ class VerPreparacionesCocinero : AppCompatActivity() {
 
     private fun actualizarListView() {
         val listView = findViewById<ListView>(R.id.preparaciones_list_view)
-        arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
+        //arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
         val adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,

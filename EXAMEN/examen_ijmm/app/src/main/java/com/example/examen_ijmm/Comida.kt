@@ -10,19 +10,22 @@ class Comida {
     var fechaCaducidad : Date = Date()
     var precio: Double = 0.0
     var isGourmet: Boolean = false
+    var idString: String = ""
 
     constructor(
         nombre: String,
         id: Int,
         fechaCaducidad : Date,
         precio: Double,
-        isGourmet: Boolean
+        isGourmet: Boolean,
+        idString: String
     ){
         this.nombre = nombre
         this.id = id
         this.fechaCaducidad = fechaCaducidad
         this.precio = precio
         this.isGourmet = isGourmet
+        this.idString = idString
     }
 
     override fun toString(): String {
@@ -30,17 +33,18 @@ class Comida {
     }
 
     companion object {
-        var listaComida = mutableListOf<Comida>()
+        var listaComida: ArrayList<Comida> = arrayListOf()
 
         fun create(
             nombre: String,
             precio: Double,
-            isGourmet: Boolean
+            isGourmet: Boolean,
+            idString: String
         ): Comida? {
             val consumirHasta = Calendar.getInstance()
             consumirHasta.add(Calendar.MONTH, 1)
             var id = Random.nextInt(1, 1001)
-            var newComida = Comida(nombre, id,consumirHasta.time,precio,isGourmet)
+            var newComida = Comida(nombre, id,consumirHasta.time,precio,isGourmet, idString)
             return newComida
         }
 

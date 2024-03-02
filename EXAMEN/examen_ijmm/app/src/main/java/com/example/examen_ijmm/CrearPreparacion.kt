@@ -30,7 +30,7 @@ class CrearPreparacion : AppCompatActivity() {
                     } else {
                         val isgourmet = findViewById<RadioButton>(R.id.check_si)
 
-                        val newComida = Comida.create(nombre, precio, isgourmet.isChecked)
+                        val newComida = Comida.create(nombre, precio, isgourmet.isChecked,"")
 
                         DB.tableComida?.crearComidaSQL(
                             newComida!!.nombre.toString(),
