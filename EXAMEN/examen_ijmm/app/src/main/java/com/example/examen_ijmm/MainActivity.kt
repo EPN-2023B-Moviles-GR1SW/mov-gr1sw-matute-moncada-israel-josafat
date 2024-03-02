@@ -55,9 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        //arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
         readAllCocinerosFB(adaptador!!)
-        //adaptador!!.notifyDataSetChanged()
     }
 
     val callbackContenidoIntentExplicito =
@@ -67,7 +65,6 @@ class MainActivity : AppCompatActivity() {
                 result ->
             if(result.resultCode == Activity.RESULT_OK){
                 if(result.data != null){
-                    //arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
                     val data = result.data
                     val listView = findViewById<ListView>(R.id.cocineros_list_view)
                     val adaptador = ArrayAdapter(
@@ -77,8 +74,6 @@ class MainActivity : AppCompatActivity() {
                     )
                     listView.adapter = adaptador
                     adaptador.notifyDataSetChanged()
-                    mostrarSnackbar("UPDATED SQL AND MEM: ${data?.getStringExtra("COCINERO_EDITAR")} ")
-
                 }
             }
         }
@@ -109,31 +104,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.mi_eliminar ->{
                 val cocineroSelectedID = arreglo[posItemSelected].id
-                var deletedCocinero = Cocinero.delete(cocineroSelectedID)
-
-                var deleteSQL = DB.tableCocinero!!.eliminarCocineroSQL(
-                    deletedCocinero!!.id
-                )
-
-                if (deleteSQL==false){
-                    val intentDevolverParametros = Intent()
-                    setResult(
-                        RESULT_CANCELED,
-                        intentDevolverParametros
-                    )
-                    finish()
-                }
-                //arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
-
-                val listView = findViewById<ListView>(R.id.cocineros_list_view)
-                val adaptador = ArrayAdapter(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    arreglo
-                )
-                listView.adapter = adaptador
-                adaptador.notifyDataSetChanged()
+                val cocineroUpdate = Cocinero.readOne(cocineroSelectedID)
+                deleteCocineroFB(cocineroUpdate!!.idString)
                 mostrarSnackbar("COCINERO ELIMINADO EXITOSAMENTE! ")
+                readAllCocinerosFB(adaptador!!)
                 return true
             }
             R.id.mi_ver ->{
@@ -200,5 +174,16 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener {
             }
     }
+
+
+    fun deleteCocineroFB(firebaseID: String){
+        val db = Firebase.firestore
+        val referencia = db.collection("cocineros")
+        referencia.document(firebaseID).delete()
+            .addOnSuccessListener{
+            }
+            .addOnFailureListener{}
+    }
+
 
 }
