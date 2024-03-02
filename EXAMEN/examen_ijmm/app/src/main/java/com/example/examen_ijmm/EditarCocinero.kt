@@ -12,7 +12,8 @@ import com.google.android.material.snackbar.Snackbar
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
-
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 class EditarCocinero : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +28,6 @@ class EditarCocinero : AppCompatActivity() {
 
       val nameInput = findViewById<EditText>(R.id.input_nombre)
       nameInput.setText(nombre)
-
-
 
       val salarioInput = findViewById<EditText>(R.id.input_salario)
       salarioInput.setText(salario.toString())
@@ -65,29 +64,11 @@ class EditarCocinero : AppCompatActivity() {
 
                     try {
                         val date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(dateText)
-
-                        var updatedCocinero = Cocinero.update(cocineroUpdateID, nombre, salario, isChef.isChecked, date)
-
-                        var updateSQL = DB.tableCocinero!!.updateCocineroSQL(
-                            updatedCocinero!!.nombre.toString(),
-                            updatedCocinero!!.id.toInt(),
-                            updatedCocinero!!.fechaLicencia.toString(),
-                            updatedCocinero!!.salario.toDouble(),
-                            updatedCocinero!!.isChef
-                        )
-
-                        if (updateSQL==true){
-                            devolverRespuesta(nombre)
-                        }else{
-                            val intentDevolverParametros = Intent()
-                            setResult(
-                                RESULT_CANCELED,
-                                intentDevolverParametros
-                            )
-                            finish()
-                        }
+                        var updatedCocineroDTO = Cocinero.update(cocineroUpdateID, nombre, salario, isChef.isChecked, date)
+                        updateCocineroFB(updatedCocineroDTO!!,cocineroUpdate.idString )
+                        devolverRespuesta(nombre)
                     } catch (e: ParseException) {
-                        mostrarSnackbar("FECHA INVÁLIDA")
+                        mostrarSnackbar("e:${e}" )
                     }
                 }
             }
@@ -112,5 +93,23 @@ class EditarCocinero : AppCompatActivity() {
             intentDevolverParametros
         )
         finish()
+    }
+
+    fun updateCocineroFB(
+        dto: Cocinero,
+        firebaseID: String
+    ){
+        val db = Firebase.firestore
+        val ref = db.collection("cocineros").document(firebaseID)
+        val updatedCocinero = mapOf(
+            "nombre" to dto.nombre,
+            "salario" to dto.salario,
+            "isChef" to dto.isChef,
+            "fechaLicencia" to dto.fechaLicencia.toString(),
+        )
+
+        ref.update(updatedCocinero)
+            .addOnSuccessListener{}
+            .addOnFailureListener{}
     }
 }

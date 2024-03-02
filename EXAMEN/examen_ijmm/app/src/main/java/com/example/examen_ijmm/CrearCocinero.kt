@@ -45,10 +45,6 @@ class CrearCocinero : AppCompatActivity() {
                             "fechaLicencia" to newCocinero!!.fechaLicencia.toString(),
                             "id" to newCocinero!!.id
                         )
-
-                        Toast.makeText(this, "C: ${nuevoCocinero}", Toast.LENGTH_LONG)
-                            .show()
-
                         referencia.add(nuevoCocinero)
                             .addOnSuccessListener{
                                 mostrarSnackbar("Cocinero Creado en FBase :)")

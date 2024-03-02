@@ -184,7 +184,7 @@ class MainActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener {
                 arreglo.clear()
-                
+
                 for (c in it){
                     c.id
                     val cocinero = Cocinero.create(
