@@ -15,11 +15,14 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-
+import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 class MainActivity : AppCompatActivity() {
 
     var arreglo = Cocinero.listaCocineros
     var posItemSelected = -1
+    var adaptador: ArrayAdapter<Cocinero>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         DB.tableCocinero = CocineroSQLHelper(this)
         DB.tableComida = ComidaSQLHelper(this)
 
-        arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
         val listView = findViewById<ListView>(R.id.cocineros_list_view)
         val adaptador = ArrayAdapter(
             this,
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         adaptador.notifyDataSetChanged()
 
         //arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
+        readAllCocinerosFB(adaptador!!)
 
         val btnCrearCocinero = findViewById<Button>(R.id.btn_crear_preparacion)
         btnCrearCocinero.setOnClickListener{
@@ -52,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
+        //arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
 
     }
 
@@ -63,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 result ->
             if(result.resultCode == Activity.RESULT_OK){
                 if(result.data != null){
-                    arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
+                    //arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
                     val data = result.data
                     val listView = findViewById<ListView>(R.id.cocineros_list_view)
                     val adaptador = ArrayAdapter(
@@ -119,7 +122,7 @@ class MainActivity : AppCompatActivity() {
                     )
                     finish()
                 }
-                arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
+                //arreglo = DB.tableCocinero!!.readAllCocinerosSQL()
 
                 val listView = findViewById<ListView>(R.id.cocineros_list_view)
                 val adaptador = ArrayAdapter(
@@ -169,6 +172,33 @@ class MainActivity : AppCompatActivity() {
         val cocineroSelectedID = arreglo[index].id
         intentExplicito.putExtra(name,cocineroSelectedID)
         callbackContenidoIntentExplicito.launch(intentExplicito)
+    }
+
+    fun readAllCocinerosFB(
+        adaptador: ArrayAdapter<Cocinero>
+    ){
+        val db = Firebase.firestore
+        val referencia = db.collection("cocineros")
+        arreglo.clear()
+        adaptador.notifyDataSetChanged()
+        referencia
+            .get()
+            .addOnSuccessListener {
+                for (c in it){
+                    c.id
+                    Toast.makeText(this, "${c.id}", Toast.LENGTH_SHORT).show()
+                    val cocinero = Cocinero.create(
+                        c.data.get("nombre") as String?:"",
+                        c.data.get("salario") as Double?:0.0,
+                        c.data.get("isChef") as Boolean?:false,
+                        c.id
+                    )
+                    arreglo.add(cocinero!!)
+                }
+                adaptador.notifyDataSetChanged()
+            }
+            .addOnFailureListener {
+            }
     }
 
 }

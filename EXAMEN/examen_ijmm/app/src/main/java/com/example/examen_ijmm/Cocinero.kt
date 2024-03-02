@@ -3,6 +3,7 @@ package com.example.examen_ijmm
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 class Cocinero{
@@ -12,19 +13,21 @@ class Cocinero{
     var fechaLicencia : Date = Date()
     var salario: Double = 0.0
     var isChef: Boolean = false
-
+    var idString: String = ""
     constructor(
         nombre: String,
         id: Int,
         fechaLicencia : Date,
         salario: Double,
-        isChef: Boolean
+        isChef: Boolean,
+        idString: String
     ){
         this.nombre = nombre
         this.id = id
         this.fechaLicencia = fechaLicencia
         this.salario = salario
         this.isChef = isChef
+        this.idString = idString
     }
 
     override fun toString(): String {
@@ -32,17 +35,18 @@ class Cocinero{
     }
 
     companion object {
-        var listaCocineros = mutableListOf<Cocinero>()
+        var listaCocineros : ArrayList<Cocinero> = arrayListOf()
 
         fun create(
             nombre: String,
             salario: Double,
-            isChef: Boolean
+            isChef: Boolean,
+            idString: String
         ): Cocinero? {
             val validoHasta = Calendar.getInstance()
             validoHasta.add(Calendar.YEAR, 1)
             val id = Random.nextInt(1, 1001)
-            val newCocinero = Cocinero(nombre, id, validoHasta.time, salario, isChef)
+            val newCocinero = Cocinero(nombre, id, validoHasta.time, salario, isChef,idString)
             return newCocinero
         }
         fun readAll(): MutableList<Cocinero> {

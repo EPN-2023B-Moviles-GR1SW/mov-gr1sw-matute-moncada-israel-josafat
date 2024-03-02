@@ -99,7 +99,7 @@ class CocineroSQLHelper(
                     }
                     val salario = resultQuery.getDouble(3)
                     val isChef = resultQuery.getInt(4) == 1
-                    val cocinero = Cocinero(nombre, id, dateLicencia, salario, isChef)
+                    val cocinero = Cocinero(nombre, id, dateLicencia, salario, isChef,"")
                     cocineros.add(cocinero)
                 } while (resultQuery.moveToNext())
             }
@@ -188,7 +188,7 @@ class CocineroSQLHelper(
         )
 
         val existeUsuario = resultQuery.moveToFirst()
-        val usuarioEncontrado = Cocinero("",0, Date(),0.0,false)
+        val usuarioEncontrado = Cocinero("",0, Date(),0.0,false,"")
         val arreglo = arrayListOf<Cocinero>()
         if(existeUsuario){
             do{
