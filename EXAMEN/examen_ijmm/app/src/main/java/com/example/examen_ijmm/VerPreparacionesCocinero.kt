@@ -14,8 +14,11 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.RadioButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlin.reflect.typeOf
 
 class VerPreparacionesCocinero : AppCompatActivity() {
@@ -55,7 +58,6 @@ class VerPreparacionesCocinero : AppCompatActivity() {
         nameInput.setText(nombre)
 
         //arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
-
         val listView = findViewById<ListView>(R.id.preparaciones_list_view)
         adaptador = ArrayAdapter(
             this,
@@ -64,6 +66,7 @@ class VerPreparacionesCocinero : AppCompatActivity() {
         )
         listView.adapter = adaptador
         adaptador!!.notifyDataSetChanged()
+        readComidasCocineroFB(adaptador!!)
 
         registerForContextMenu(listView)
 
@@ -71,6 +74,7 @@ class VerPreparacionesCocinero : AppCompatActivity() {
         btnCrearPreparacion
             .setOnClickListener {
                 irActividad(CrearPreparacion::class.java, cocineroUpdate.id)
+                adaptador!!.notifyDataSetChanged()
 
             }
 
@@ -80,8 +84,7 @@ class VerPreparacionesCocinero : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        actualizarListView()
-
+        readComidasCocineroFB(adaptador!!)
     }
 
 
@@ -103,18 +106,15 @@ class VerPreparacionesCocinero : AppCompatActivity() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.mi_editar ->{
-                abrirActividadConParametros(EditarPreparacion::class.java,arreglo[posItemSelected].id.toString().toInt(),"PREPARACION_EDITAR")
+                abrirActividadConParametros(EditarPreparacion::class.java,arreglo[posItemSelected].id,"PREPARACION_EDITAR")
                 return true
             }
             R.id.mi_eliminar ->{
-                val res = DB.tableComida!!.eliminarComidaSQL(arreglo[posItemSelected].id.toString().toInt())
-                if (res==true){
-                    Comida.delete(arreglo[posItemSelected].id.toString().toInt())
-                    //arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
-                    actualizarListView()
-                    mostrarSnackbar("Preparación eliminada correctamente")
-                }
-
+                val comidaSelectdId = arreglo[posItemSelected].id
+                val comidaUpdate = Comida.readOne(comidaSelectdId)
+                deleteComidaFB(comidaUpdate!!.idString)
+                mostrarSnackbar("PREPARACIÓN ELIMINADO EXITOSAMENTE! ")
+                readComidasCocineroFB(adaptador!!)
                 return true
             }
             else -> super.onContextItemSelected(item)
@@ -124,13 +124,13 @@ class VerPreparacionesCocinero : AppCompatActivity() {
     private fun actualizarListView() {
         val listView = findViewById<ListView>(R.id.preparaciones_list_view)
         //arreglo = DB.tableComida!!.readComidaCocineroSQL(cocineroID)
-        val adaptador = ArrayAdapter(
+        adaptador = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
             arreglo
         )
         listView.adapter = adaptador
-        adaptador.notifyDataSetChanged()
+        adaptador!!.notifyDataSetChanged()
     }
 
 
@@ -145,8 +145,7 @@ class VerPreparacionesCocinero : AppCompatActivity() {
 
     fun irActividad (
         clase: Class<*>,
-        index: Int,
-
+        index: Int
     ){
         val intent = Intent(this, clase)
         val cocineroSelectedID = Cocinero.readOne(index)!!.id
@@ -163,9 +162,54 @@ class VerPreparacionesCocinero : AppCompatActivity() {
         val intentExplicito = Intent(this, clase)
         intentExplicito.putExtra(name,id)
         intentExplicito.putExtra("PREPARACION_COCINERO",cocineroID)
-
         callbackContenidoIntentExplicito.launch(intentExplicito)
 
+    }
+
+    fun readComidasCocineroFB(
+        adaptador: ArrayAdapter<Comida>
+    ){
+
+
+        val db = Firebase.firestore
+        val referencia = db.collection("comidas")
+            //.whereEqualTo("cocinero", cocineroUpdate.idString)
+        adaptador.notifyDataSetChanged()
+        referencia
+            .get()
+            .addOnSuccessListener {
+                arreglo.clear()
+
+                for (c in it){
+
+                    c.id
+                    val comida = Comida.create(
+                        c.data.get("nombre") as String?: "",
+                        c.data.get("precio") as Double?: 0.0,
+                        c.data.get("isGourmet") as Boolean?:false,
+                        c.id,
+                        c.data.get("cocinero") as String?: ""
+                        )
+                    Toast.makeText(this, "c: ${comida!!.idCocinero}", Toast.LENGTH_LONG)
+                        .show()
+                    if(comida!!.idCocinero==cocineroUpdate.idString){
+
+                        arreglo.add(comida!!)
+                    }
+                }
+                adaptador.notifyDataSetChanged()
+            }
+            .addOnFailureListener {
+            }
+    }
+
+    fun deleteComidaFB(firebaseID: String){
+        val db = Firebase.firestore
+        val referencia = db.collection("comidas")
+        referencia.document(firebaseID).delete()
+            .addOnSuccessListener{
+            }
+            .addOnFailureListener{}
     }
 
 }

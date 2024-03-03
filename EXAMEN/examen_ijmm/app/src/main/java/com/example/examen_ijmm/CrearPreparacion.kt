@@ -7,7 +7,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import com.google.android.material.snackbar.Snackbar
-
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 class CrearPreparacion : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +32,22 @@ class CrearPreparacion : AppCompatActivity() {
                     } else {
                         val isgourmet = findViewById<RadioButton>(R.id.check_si)
 
-                        val newComida = Comida.create(nombre, precio, isgourmet.isChecked,"")
-
-                        DB.tableComida?.crearComidaSQL(
-                            newComida!!.nombre.toString(),
-                            newComida!!.id.toInt(),
-                            newComida!!.fechaCaducidad.toString(),
-                            newComida!!.precio.toDouble(),
-                            newComida!!.isGourmet,
-                            cocineroUpdateID
+                        val newComida = Comida.create(nombre, precio, isgourmet.isChecked,"",cocineroUpdate!!.idString)!!
+                        val db = Firebase.firestore
+                        val referencia = db.collection("comidas")
+                        val nuevaComida = hashMapOf(
+                            "nombre" to newComida!!.nombre,
+                            "precio" to newComida!!.precio,
+                            "isGourmet" to newComida!!.isGourmet,
+                            "fechaCaducidad" to newComida!!.fechaCaducidad.toString(),
+                            "id" to newComida!!.id,
+                            "cocinero" to cocineroUpdate!!.idString
                         )
-
+                        referencia.add(nuevaComida)
+                            .addOnSuccessListener{
+                                mostrarSnackbar("Comida Creada en FBase :)")
+                            }
+                            .addOnFailureListener{}
                         finish()
                     }
                 }

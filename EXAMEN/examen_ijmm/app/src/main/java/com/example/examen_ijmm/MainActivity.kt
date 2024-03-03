@@ -67,13 +67,13 @@ class MainActivity : AppCompatActivity() {
                 if(result.data != null){
                     val data = result.data
                     val listView = findViewById<ListView>(R.id.cocineros_list_view)
-                    val adaptador = ArrayAdapter(
+                    adaptador = ArrayAdapter(
                         this,
                         android.R.layout.simple_list_item_1,
                         arreglo
                     )
                     listView.adapter = adaptador
-                    adaptador.notifyDataSetChanged()
+                    adaptador!!.notifyDataSetChanged()
                 }
             }
         }
@@ -107,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                 val cocineroUpdate = Cocinero.readOne(cocineroSelectedID)
                 deleteCocineroFB(cocineroUpdate!!.idString)
                 mostrarSnackbar("COCINERO ELIMINADO EXITOSAMENTE! ")
+                adaptador!!.notifyDataSetChanged()
                 readAllCocinerosFB(adaptador!!)
                 return true
             }
@@ -176,13 +177,43 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun deleteCocineroFB(firebaseID: String){
+    fun deleteCocineroFB(firebaseID: String) {
         val db = Firebase.firestore
-        val referencia = db.collection("cocineros")
-        referencia.document(firebaseID).delete()
-            .addOnSuccessListener{
+
+        val comidasCocineroRef = db.collection("comidas")
+        adaptador!!.notifyDataSetChanged()
+
+        comidasCocineroRef.whereEqualTo("cocinero", firebaseID).get()
+            .addOnSuccessListener { querySnapshot ->
+                val batch = db.batch()
+                for (documento in querySnapshot) {
+                    batch.delete(documento.reference)
+                }
+                batch.commit()
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Preparaciones de cocinero eliminadas!", Toast.LENGTH_LONG)
+                            .show()
+
+                        val referencia = db.collection("cocineros")
+                        referencia.document(firebaseID).delete()
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "Cocinero Eliiminado", Toast.LENGTH_LONG)
+                                    .show()
+                                adaptador!!.notifyDataSetChanged()
+                            }
+                            .addOnFailureListener {e ->
+                                Toast.makeText(this, "e:${e}", Toast.LENGTH_LONG)
+                                    .show()                               }
+                    }
+                    .addOnFailureListener {e ->
+                        Toast.makeText(this, "e:${e}", Toast.LENGTH_LONG)
+                            .show()
+                    }
             }
-            .addOnFailureListener{}
+            .addOnFailureListener {e ->
+                Toast.makeText(this, "e:${e}", Toast.LENGTH_LONG)
+                    .show()
+            }
     }
 
 

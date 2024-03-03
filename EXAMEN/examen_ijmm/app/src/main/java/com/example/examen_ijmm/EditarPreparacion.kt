@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -30,18 +32,17 @@ class EditarPreparacion : AppCompatActivity() {
         val nameInput = findViewById<EditText>(R.id.input_nombre)
         nameInput.setText(nombre)
 
-
         val precioInput = findViewById<EditText>(R.id.input_precio)
         precioInput.setText(precio.toString())
 
-                val isGourmetRadioBtn = findViewById<RadioButton>(R.id.check_si)
-                val notIsGourmetRadioBtn = findViewById<RadioButton>(R.id.check_no)
+        val isGourmetRadioBtn = findViewById<RadioButton>(R.id.check_si)
+        val notIsGourmetRadioBtn = findViewById<RadioButton>(R.id.check_no)
 
-                if (isGourmet){
-                    isGourmetRadioBtn.isChecked = true
-                } else {
-                    notIsGourmetRadioBtn.isChecked = true
-                }
+        if (isGourmet){
+            isGourmetRadioBtn.isChecked = true
+        } else {
+            notIsGourmetRadioBtn.isChecked = true
+        }
 
           val formattedDate  = SimpleDateFormat("dd-MM-yyyy").format(date)
 
@@ -67,27 +68,9 @@ class EditarPreparacion : AppCompatActivity() {
 
                       try {
                           val date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(dateInput)
-                          var updatedComida = Comida.update(comidaUpdateID, nombre, precio, isGourmet.isChecked, date)
-
-                          var updateSQL = DB.tableComida!!.updateComidaSQL(
-                              updatedComida!!.nombre.toString(),
-                              updatedComida!!.id.toInt(),
-                              updatedComida!!.fechaCaducidad.toString(),
-                              updatedComida!!.precio.toDouble(),
-                              updatedComida!!.isGourmet,
-                              cocineroID
-                          )
-
-                          if (updateSQL==true){
-                              devolverRespuesta()
-                          }else{
-                              val intentDevolverParametros = Intent()
-                              setResult(
-                                  RESULT_CANCELED,
-                                  intentDevolverParametros
-                              )
-                              finish()
-                          }
+                          var updatedComidaDTO = Comida.update(comidaUpdateID, nombre, precio, isGourmet.isChecked, date)
+                          updateComidaFB(updatedComidaDTO!!,comidaToUpdate.idString )
+                          devolverRespuesta()
                       }catch (e: ParseException) {
                           mostrarSnackbar("FECHA INVÁLIDA")
                       }
@@ -113,5 +96,23 @@ class EditarPreparacion : AppCompatActivity() {
             intentDevolverParametros
         )
         finish()
+    }
+
+    fun updateComidaFB(
+        dto: Comida,
+        firebaseID: String
+    ){
+        val db = Firebase.firestore
+        val ref = db.collection("comidas").document(firebaseID)
+        val updatedComida = mapOf(
+            "nombre" to dto.nombre,
+            "precio" to dto.precio,
+            "isGourmet" to dto.isGourmet,
+            "fechaCaducidad" to dto.fechaCaducidad.toString(),
+        )
+
+        ref.update(updatedComida)
+            .addOnSuccessListener{}
+            .addOnFailureListener{}
     }
 }

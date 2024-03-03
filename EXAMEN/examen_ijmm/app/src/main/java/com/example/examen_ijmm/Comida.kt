@@ -11,14 +11,15 @@ class Comida {
     var precio: Double = 0.0
     var isGourmet: Boolean = false
     var idString: String = ""
-
+    var idCocinero: String = ""
     constructor(
         nombre: String,
         id: Int,
         fechaCaducidad : Date,
         precio: Double,
         isGourmet: Boolean,
-        idString: String
+        idString: String,
+        idCocinero: String
     ){
         this.nombre = nombre
         this.id = id
@@ -26,6 +27,7 @@ class Comida {
         this.precio = precio
         this.isGourmet = isGourmet
         this.idString = idString
+        this.idCocinero = idCocinero
     }
 
     override fun toString(): String {
@@ -39,18 +41,20 @@ class Comida {
             nombre: String,
             precio: Double,
             isGourmet: Boolean,
-            idString: String
+            idString: String,
+            idCocinero: String
         ): Comida? {
             val consumirHasta = Calendar.getInstance()
             consumirHasta.add(Calendar.MONTH, 1)
             var id = Random.nextInt(1, 1001)
-            var newComida = Comida(nombre, id,consumirHasta.time,precio,isGourmet, idString)
+            var newComida = Comida(nombre, id,consumirHasta.time,precio,isGourmet, idString, idCocinero)
             return newComida
         }
 
         fun readOne(id:Int): Comida? {
-            val comida = DB.tableComida?.readComidaSQL(id)
-            return comida
+            //val comida = DB.tableComida?.readComidaSQL(id)
+            //return comida
+            return this.listaComida.find{c->c.id==id}
         }
 
         fun update(

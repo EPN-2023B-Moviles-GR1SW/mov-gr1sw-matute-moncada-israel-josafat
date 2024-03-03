@@ -102,7 +102,7 @@ class ComidaSQLHelper(
                     }
                     val precio = resultQuery.getDouble(3)
                     val isGourmet = resultQuery.getInt(4) == 1
-                    val comida = Comida(nombre, id, dateCaducidad, precio, isGourmet, "")
+                    val comida = Comida(nombre, id, dateCaducidad, precio, isGourmet, "","")
                     preparaciones.add(comida)
 
                 }while(resultQuery.moveToNext())
@@ -197,7 +197,7 @@ class ComidaSQLHelper(
             )
 
             val existeComida = resultQuery.moveToFirst()
-            val comidaEncontrada = Comida("",0, Date(),0.0,false,"")
+            val comidaEncontrada = Comida("",0, Date(),0.0,false,"","")
             if(existeComida){
                 do{
                     val id = resultQuery.getInt(0)
